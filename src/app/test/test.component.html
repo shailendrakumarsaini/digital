@@ -1,0 +1,110 @@
+<div id="wrapper">
+    <app-sidebar></app-sidebar>
+    <div id="content-wrapper" class="d-flex flex-column">
+      <div id="content">
+        <app-topnavbar></app-topnavbar>
+        <div class="container-fluid">
+            <div class="card shadow mb-4">
+                <div class="card-header mb-4"> 
+                    <!-- <div class="row">
+                        <div class="col-md-3">
+                            <h5 class="m-0 font-weight-bold text-primary"> Application Form</h5>
+                        </div>
+                        <div class="col-md-7"></div>
+                        <div class="col-md-2">
+                            <a routerLink="../../dashboard"><button class="btn btn-primary btn-sm btn-block">Back</button> </a>
+                        </div> 
+                    </div> -->
+                    <div class="row">
+                        <div class="col-md-3">
+                          <h4 class="m-0 font-weight-bold text-primary">Chief Complaint </h4>
+                        </div>
+                        <!-- <div class="col-md-3"> 
+                          <div class="form-inline mr-auto w-100 navbar-search">
+                            <div class="input-group">
+                              <input type="text" [(ngModel)]="searchTerm" class="form-control  small" placeholder="Search..."
+                              aria-label="Search" autocomplete="off" autofocus
+                                aria-describedby="basic-addon2">
+                              <div class="input-group-append"> 
+                                <button class="btn btn-primary" type="button">
+                                  <i class="fas fa-search fa-sm"></i>
+                                </button>
+                              </div>
+                            </div> 
+                          </div>
+                        </div>-->
+                        <div class="offset-md-7 col-md-2">
+                          <input type="submit" class="btn btn-success btn-sm btn-block" value="Save" />
+                        </div> 
+                    </div>
+                </div>
+                <form [formGroup]="employeeForm" (ngSubmit)="onSubmit(employeeForm.value)">
+                  <div class="card-body">
+                    <div class="row">
+                        
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label for="">FullName</label>
+                            <input type="text" formControlName="FullName" class="form-control" (blur)="logValidationMessages()"
+                              [class.is-invalid]="formErrors.FullName" placeholder="FullName">
+                            <div *ngIf="formErrors.FullName" class="invalid-feedback">{{formErrors.FullName}}</div>
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label for="">Email</label>
+                            <input type="text" formControlName="Email" class="form-control" (blur)="logValidationMessages()"
+                              [class.is-invalid]="formErrors.Email" placeholder="Email">
+                            <div *ngIf="formErrors.Email" class="invalid-feedback">{{formErrors.Email}}</div>
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <div formArrayName="skills" *ngFor="let skill of employeeForm.get('skills').controls; let i = index">
+                          <div [formGroupName]="i">
+                            <div class="form-group">
+                                <label for="">SkillName</label>
+                                  <input type="text" formControlName="skillName" class="form-control" placeholder="Enter SkillName"
+                                    [class.is-invalid]="skill.get('skillName').invalid && skill.get('skillName').touched" >
+                                  <div *ngIf="skill.get('skillName').invalid && skill.get('skillName').touched" class="invalid-feedback">
+                                    <div *ngIf="skill.get('skillName').errors?.required">Skill is required</div>
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                <label for="">Experience In Years</label>
+                                  <input type="text" formControlName="experienceInYears" class="form-control" placeholder="Enter Experience In Years"
+                                    [class.is-invalid]="skill.get('experienceInYears').invalid && skill.get('experienceInYears').touched">
+                                  <div *ngIf="skill.get('experienceInYears').invalid && skill.get('experienceInYears').touched" class="invalid-feedback">
+                                    <div *ngIf="skill.get('experienceInYears').errors?.required">Experience is required</div>
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                          
+                      </div>
+                      
+                    </div>
+                  </div>
+                  <div class="card-footer">
+                    <div class="row">
+                      <div class="col-md-2">
+                        <input type="button" (click)="addSkillButtonClick()" [disabled]="employeeForm.get('skills').invalid" class="btn btn-warning btn-sm btn-block" value="+ Add Skill" />
+                      </div>
+                      <!-- <div class="col-md-2">
+                        <input type="submit" class="btn btn-success btn-sm btn-block" value="Save" />
+                      </div> -->
+                      <div class="offset-md-8 col-md-2">
+                        <input type="button" (click)="gotoIllness()" class="btn btn-primary btn-sm btn-block" value="Next" />
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                <pre>{{employeeForm.value |json}}</pre>
+            </div>
+  
+        
+        </div>
+      </div>
+      <app-footer></app-footer>
+    </div>
+  </div>
+ 

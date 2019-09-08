@@ -1,0 +1,60 @@
+<div id="wrapper">
+  <app-sidebar></app-sidebar>
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+      <app-topnavbar></app-topnavbar>
+        <div class="container-fluid">
+
+            <div class="card shadow mb-4">
+              <div class="card-header py-3 row">
+                <div class="col-md-3">
+                  <h4 class="m-0 font-weight-bold text-primary">Patient List </h4>
+                </div>
+                <div class="col-md-3"> 
+                  <div class="form-inline mr-auto w-100 navbar-search">
+                    <div class="input-group">
+                      <input type="text" [(ngModel)]="searchTerm" class="form-control  small" placeholder="Search..."
+                      aria-label="Search" autocomplete="off"
+                        aria-describedby="basic-addon2">
+                      <div class="input-group-append"> 
+                        <button class="btn btn-primary" type="button">
+                          <i class="fas fa-search fa-sm"></i>
+                        </button>
+                      </div>
+                    </div> 
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Addmission Date</th>
+                        <th>Address</th>
+                        <th>Age</th>
+                        <th>photo</th>
+                        <th>Mobile</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let i of Patient">
+                        <td (click)="goToChiefComplainComponent(i._id)" style="color:blue;cursor:pointer">{{i.first_name}}  {{i.last_name}}</td>
+                        <td>{{i.addmission_date | date }}</td>
+                        <td>{{i.permanent_address}}</td>
+                        <td>{{i.age}}</td>
+                        <td><img src="{{i.profile_image}}" height="50px" width="50px"></td>
+                        <td>{{i.permanent_mobile}}</td>
+                      </tr>
+                      </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
+        </div>
+    </div>
+    <app-footer></app-footer>
+  </div>
+</div>

@@ -1,0 +1,97 @@
+<div id="wrapper">
+  <app-sidebar></app-sidebar>
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+      <app-topnavbar></app-topnavbar>
+      <div class="container-fluid">
+          <div class="card shadow mb-4">
+              <div class="card-header mb-4"> 
+                <div class="row">
+                    <div class="col-md-3">
+                      <h4 class="m-0 font-weight-bold text-primary">Chief Complaint </h4>
+                    </div>
+                    <!-- <div class="col-md-3"> 
+                      <div class="form-inline mr-auto w-100 navbar-search">
+                        <div class="input-group">
+                          <input type="text" [(ngModel)]="searchTerm" class="form-control  small" placeholder="Search..."
+                          aria-label="Search" autocomplete="off" autofocus
+                            aria-describedby="basic-addon2">
+                          <div class="input-group-append"> 
+                            <button class="btn btn-primary" type="button">
+                              <i class="fas fa-search fa-sm"></i>
+                            </button>
+                          </div>
+                        </div> 
+                      </div>
+                    </div> -->
+                    <div class="offset-md-7 col-md-2">
+                        <a><button (click)="gotoIllness()" class="btn btn-primary btn-sm btn-block">Next</button> </a>
+                    </div> 
+                </div>
+              </div>
+              <form [formGroup]="familyDataForm" (ngSubmit)="onSubmit(familyDataForm.value)">
+                <div class="card-body">
+                  <div formArrayName="Complaint" *ngFor="let complain of familyDataForm.get('Complaint').controls; let i = index">
+                    <div [formGroupName]="i">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="">Complaint</label>
+                              <input type="text" formControlName="Complaint" class="form-control" placeholder="Complaint decription*"
+                                [class.is-invalid]="complain.get('Complaint').invalid && complain.get('Complaint').touched">
+                              <div *ngIf="complain.get('Complaint').invalid && complain.get('Complaint').touched" class="invalid-feedback">
+                                <div *ngIf="complain.get('Complaint').errors?.required">Complaint field is required</div>
+                              </div>
+                          </div>
+                            
+                        </div> 
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label for="">Duration</label>
+                                <select class="form-control" formControlName="ComplaintDuration" class="form-control"
+                                  [class.is-invalid]="complain.get('ComplaintDuration').invalid && complain.get('ComplaintDuration').touched">
+                                    <option disabled value="">Select Your Option</option>
+                                    <option value="Last 2 days">Last 2 days</option>
+                                    <option value=" Last 2 weeks"> Last 2 weeks</option>
+                                    <option value="Less than 1 month">Less than 1 month</option>
+                                    <option value="1 to 3 months">1 to 3 months</option>
+                                    <option value="3 to 6 months">3 to 6 months</option>
+                                    <option value="More than 6 months">More than 6 months</option>
+                                    <option value="More than 1 year">More  than 1 year</option>
+                                    <option value="More than 5 years">More than 5 years</option>
+                                </select>
+                                <div *ngIf="complain.get('ComplaintDuration').invalid && complain.get('ComplaintDuration').touched" class="invalid-feedback">
+                                  <div *ngIf="complain.get('ComplaintDuration').errors?.required">Complaint field is required</div>
+                                </div>
+                            </div> 
+                        </div>
+                        <div class="col-md-1">
+                          <div class="form-group">
+                            <label>&nbsp;</label>
+                            <button type="button" (click)="removeComplaintButtonClick(i)" *ngIf="i > 0" class="btn btn-danger btn-sm form-control"> - </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <div class="row">
+                    <div class="col-md-2 text-left">
+                      <input type="button" (click)="addComplaintButtonClick()" [disabled]="familyDataForm.get('Complaint').invalid" class="btn btn-warning btn-sm btn-block" value="+ Add Complaint" >
+                    </div>
+                    <div class="offset-md-8 col-md-2 text-right">
+                      <input type="submit" [disabled]="familyDataForm.invalid" class="btn btn-success btn-sm btn-block" value="Save" />
+                    </div>
+                  </div>
+                </div>
+              </form>
+              <pre>{{familyDataForm.value |json}}</pre>
+          </div>
+
+      
+      </div>
+    </div>
+    <app-footer></app-footer>
+  </div>
+</div>
